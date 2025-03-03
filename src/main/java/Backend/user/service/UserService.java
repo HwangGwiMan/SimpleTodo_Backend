@@ -22,7 +22,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<Map<String, String>> signup(UserRequestDto user) {
+    public ResponseEntity<Map<String, Object>> signup(UserRequestDto user) {
+        // username 중복 체크
         if (userRepository.existsByUsername(user.getUsername())) {
             return ResponseEntity.status(400)
                 .body(Map.of("code", ResponseCode.USER_EXISTS.getCode(), "message", ResponseCode.USER_EXISTS.getMessage()));
@@ -34,7 +35,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<Map<String, String>> login(UserRequestDto user) {        
+    public ResponseEntity<Map<String, Object>> login(UserRequestDto user) {        
         UserRequestDto loginUser = userRepository.findByUsername(user.getUsername());
         if (loginUser == null) {
             return ResponseEntity.status(400)
@@ -59,7 +60,9 @@ public class UserService {
                     "code", ResponseCode.SUCCESS.getCode(), 
                     "message", ResponseCode.SUCCESS.getMessage(), 
                     "accessToken", token, 
-                    "refreshToken", refreshToken
+                    "refreshToken", refreshToken,
+                    "username", loginUser.getUsername(),
+                    "userId", loginUser.getId()
                 ));
         }
     }

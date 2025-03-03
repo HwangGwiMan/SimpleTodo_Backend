@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import Backend.todo.dto.TodoRequestDto;
+import Backend.todo.dto.TodoSaveDto;
 import Backend.todo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class TodoService {
     private final TodoRepository todoRepository;
 
-    public void createTodo(TodoRequestDto todoRequestDto) {
-        todoRepository.createTodo(todoRequestDto);
+    public void createTodo(TodoSaveDto todoSaveDto) {
+        todoRepository.createTodo(todoSaveDto);
     }
 
     public void updateTodo(TodoRequestDto todoRequestDto) {
@@ -29,7 +30,7 @@ public class TodoService {
         return todoRepository.getTodo(id);
     }
 
-    public List<TodoRequestDto> getTodos(int createdBy) {
-        return todoRepository.getTodos(createdBy);
+    public List<TodoRequestDto> getTodosByUserId(int userId) {
+        return todoRepository.getTodosByUserId(userId);
     }
 } 

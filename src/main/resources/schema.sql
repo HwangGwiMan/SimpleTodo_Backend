@@ -9,8 +9,12 @@ CREATE TABLE IF NOT EXISTS roles (
     name TEXT NOT NULL UNIQUE
 );
 
-INSERT INTO roles (name) VALUES ("/api/users/**");
-INSERT INTO roles (name) VALUES ("/api/todos/**");
+INSERT INTO roles (name) VALUES ("/api/users/login");
+INSERT INTO roles (name) VALUES ("/api/users/signup");
+INSERT INTO roles (name) VALUES ("/api/todos/create");
+INSERT INTO roles (name) VALUES ("/api/todos/update");
+INSERT INTO roles (name) VALUES ("/api/todos/delete");
+INSERT INTO roles (name) VALUES ("/api/todos/get");
 
 -- User Role Table
 CREATE TABLE IF NOT EXISTS user_roles (
@@ -20,6 +24,11 @@ CREATE TABLE IF NOT EXISTS user_roles (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
+
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 3);
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 4);
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 5);
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 6);
 
 -- User Table
 CREATE TABLE IF NOT EXISTS users (

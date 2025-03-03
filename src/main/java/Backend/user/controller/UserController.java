@@ -20,12 +20,12 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<Map<String, String>> signup(@RequestBody UserRequestDto user) {
+    public ResponseEntity<Map<String, Object>> signup(@RequestBody UserRequestDto user) {
         return userService.signup(user);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody UserRequestDto user) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody UserRequestDto user) {
         return userService.login(user);
     }
 } 

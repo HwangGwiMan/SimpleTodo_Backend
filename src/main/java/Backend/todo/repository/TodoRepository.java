@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import Backend.todo.dto.TodoRequestDto;
+import Backend.todo.dto.TodoSaveDto;
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -14,9 +15,11 @@ public class TodoRepository {
     private final JdbcTemplate jdbcTemplate;
 
 
-    public void createTodo(TodoRequestDto todoRequestDto) {
-        String sql = "INSERT INTO todos (title, description, completed, created_by) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, todoRequestDto.getTitle(), todoRequestDto.getDescription(), todoRequestDto.isCompleted(), todoRequestDto.getCreatedBy());
+    public void createTodo(TodoSaveDto todoSaveDto) {
+        for (TodoRequestDto todoRequestDto : todoSaveDto.getTodos()) {
+            String sql = "INSERT INTO todos (title, description, completed, created_by) VALUES (?, ?, ?, ?)";
+            jdbcTemplate.update(sql, todoRequestDto.getTitle(), todoRequestDto.getDescription(), todoRequestDto.isCompleted(), todoRequestDto.getCreatedBy());
+        }
     }
 
     public void updateTodo(TodoRequestDto todoRequestDto) {
@@ -41,7 +44,7 @@ public class TodoRepository {
         }, id);
     }       
 
-    public List<TodoRequestDto> getTodos(int createdBy) {
+    public List<TodoRequestDto> getTodosByUserId(int userId) {
         String sql = "SELECT * FROM todos WHERE created_by = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             TodoRequestDto todoRequestDto = new TodoRequestDto();
