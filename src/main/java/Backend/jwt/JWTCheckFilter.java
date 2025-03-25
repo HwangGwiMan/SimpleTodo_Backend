@@ -2,7 +2,7 @@ package Backend.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Backend.role.repository.RoleRepository;
+// import Backend.role.repository.RoleRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 public class JWTCheckFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final RoleRepository roleRepository;
+    // private final RoleRepository roleRepository;
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        boolean isLoginOrSignup = requestURI.startsWith("/api/users/login") || requestURI.startsWith("/api/users/signup");
+        boolean isLoginOrSignup = requestURI.startsWith("/api/user/login") || requestURI.startsWith("/api/user/signup");
         return isLoginOrSignup;
     }
 
