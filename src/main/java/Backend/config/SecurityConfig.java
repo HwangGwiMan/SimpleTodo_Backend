@@ -17,18 +17,18 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import Backend.jwt.JWTCheckFilter;
-import Backend.role.repository.RoleRepository;
+// import Backend.role.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final RoleRepository roleRepository;
+    // private final RoleRepository roleRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        List<String> roles = roleRepository.findAll();
+        // List<String> roles = roleRepository.findAll();
         
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -39,8 +39,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // TODO 
                 // requestMatchers 반복하는 부분 개선 필요
-                .requestMatchers("/api/users/login").permitAll()
-                .requestMatchers("/api/users/signup").permitAll()
+                .requestMatchers("/api/user/login").permitAll()
+                .requestMatchers("/api/user/signup").permitAll()
                 .requestMatchers("/api/todos/create").permitAll()
                 .requestMatchers("/api/todos/update").permitAll()
                 .requestMatchers("/api/todos/delete").permitAll()
@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/todos/get/by-user-id").permitAll()
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(new JWTCheckFilter(roleRepository), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
