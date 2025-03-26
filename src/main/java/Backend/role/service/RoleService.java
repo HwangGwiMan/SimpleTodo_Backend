@@ -3,7 +3,9 @@ package Backend.role.service;
 import java.util.List;
 
 import Backend.role.entity.RoleEntity;
+import Backend.role.entity.UserRoleEntity;
 import Backend.role.repository.RoleRepository;
+import Backend.role.repository.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
 // import Backend.role.repository.RoleRepository;
@@ -12,12 +14,24 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RoleService {
-     private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final RoleRepository roleRepository;
 
-    public List<String> getRolesByUserId(int userId) {
-        return null;
+    /**
+     * 유저의 모든 권한을 조회하는 메서드
+     * 
+     * @param userId 유저의 아이디
+     * @return 유저의 모든 권한
+     */
+    public List<UserRoleEntity> getRolesByUserId(Long userId) {
+        return userRoleRepository.findByUserId(userId);
     }
-    // 전체 권한 조회
+
+    /**
+     * 모든 권한을 조회하는 메서드
+     * 
+     * @return 모든 권한
+     */
     public List<RoleEntity> getAllRoles() {
         return roleRepository.findAll();
     }
