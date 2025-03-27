@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data
 public class TodoSaveDto {
-    private List<TodoRequestDto> todos;
+    private List<TodoDto> todoList;
 }
