@@ -1,15 +1,24 @@
 package Backend.todo.service;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.List;
 
+import Backend.common.AbstractDto;
+import Backend.common.AbstractEntity;
 import Backend.common.DirtyFlag;
+import Backend.common.mapper.GenericMapper;
+import Backend.common.util.CommonJPA;
+import Backend.config.ResponseCode;
 import Backend.todo.conv.TodoConv;
 import Backend.todo.dto.TodoDto;
 import Backend.todo.dto.TodoSaveDto;
+import Backend.todo.dto.TodoSearchDto;
 import Backend.todo.repository.TodoRepository;
 import Backend.todo.entity.TodoEntity;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,45 +31,27 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final TodoConv todoConv;
 
+    /**
+     * Todo 저장
+     * 
+     * @param dto
+     */
     @Transactional
     public void save(TodoSaveDto dto) {
         Optional.ofNullable(dto.getTodoList())
-            .ifPresent(this::processTodoList);
+            .ifPresent(todoDtoList -> CommonJPA.saveEntity(todoDtoList, todoRepository, todoConv));
     }
 
-    private void processTodoList(List<TodoDto> todoList) {
-        for (TodoDto todo : todoList) {
-            try {
-                processTodo(todo);
-            } catch (Exception e) {
-                log.error("Todo 처리 중 오류 발생: {}", e.getMessage(), e);
-                throw new RuntimeException("Todo 처리 중 오류가 발생했습니다.", e);
-            }
-        }
+    /**
+     * 유저 아이디로 Todo 조회
+     * 
+     * @param userId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<Map<String, Object>> getTodoListByUserId(Long userId) {
+        List<TodoEntity> todoList = todoRepository.findByUserId(userId);
+        return ResponseEntity.status(200).body(Map.of("code", ResponseCode.SUCCESS.getCode(), "message", ResponseCode.SUCCESS.getMessage(), "data", todoList));
     }
 
-    private void processTodo(TodoDto todo) {
-        if (todo == null || todo.getDirtyFlag() == null) {
-            log.warn("유효하지 않은 Todo 데이터: {}", todo);
-            return;
-        }
-
-        DirtyFlag dirtyFlag = todo.getDirtyFlag();
-        TodoEntity entity = todoConv.toEntity(todo);
-
-        switch (dirtyFlag.getFlag()) {
-            case INSERT, UPDATE -> todoRepository.save(entity);
-            case DELETE -> todoRepository.delete(entity);
-        }
-    }
-
-//    public TodoRequestDto getTodo(Long id) {
-//        // return todoRepository.getTodo(id);
-//        return null;
-//    }
-//
-//    public List<TodoRequestDto> getTodosByUserId(int userId) {
-//        // return todoRepository.getTodosByUserId(userId);
-//        return null;
-//    }
 } 

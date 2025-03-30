@@ -15,8 +15,8 @@ import java.sql.Timestamp;
 @Data
 public class UserRoleEntity extends AbstractEntity {
     @Column(name = "role_id")
-    private Long role_id;
+    private Long roleId;
 
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 }

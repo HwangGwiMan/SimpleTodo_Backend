@@ -26,9 +26,7 @@ import java.util.stream.Collectors;
 @Log4j2
 @RequiredArgsConstructor
 public class JWTCheckFilter extends OncePerRequestFilter {
-
     private final ObjectMapper objectMapper = new ObjectMapper();
-    // private final RoleRepository roleRepository;
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {

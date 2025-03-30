@@ -1,7 +1,10 @@
 package Backend.todo.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import Backend.todo.entity.TodoEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,21 +25,11 @@ public class TodoController {
 
     @PostMapping("/save")
     public void createTodo(@RequestBody TodoSaveDto todoSaveDto) {
-        todoService.createTodo(todoSaveDto);
-    }
-
-    @DeleteMapping("/delete")
-    public void deleteTodo(@RequestBody TodoRequestDto todoRequestDto) {
-        todoService.deleteTodo(todoRequestDto.getId());
-    }
-        
-    @PostMapping("/get")
-    public TodoRequestDto getTodo(@RequestBody TodoRequestDto todoRequestDto) {
-        return todoService.getTodo(todoRequestDto.getId());
+        todoService.save(todoSaveDto);
     }
 
     @GetMapping("/get/{userId}")
-    public List<TodoRequestDto> getTodosByUserId(@PathVariable int userId) {
-        return todoService.getTodosByUserId(userId);
+    public ResponseEntity<Map<String, Object>> getTodoListByUserId(@PathVariable Long userId) {
+        return todoService.getTodoListByUserId(userId);
     }
 } 

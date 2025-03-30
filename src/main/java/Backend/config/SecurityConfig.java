@@ -39,13 +39,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // TODO 
                 // requestMatchers 반복하는 부분 개선 필요
-                .requestMatchers("/api/user/login").permitAll()
-                .requestMatchers("/api/user/signup").permitAll()
-                .requestMatchers("/api/todos/create").permitAll()
-                .requestMatchers("/api/todos/update").permitAll()
-                .requestMatchers("/api/todos/delete").permitAll()
-                .requestMatchers("/api/todos/get").permitAll()
-                .requestMatchers("/api/todos/get/by-user-id").permitAll()
+                .requestMatchers("**").permitAll()
+//                .requestMatchers("/api/users/signup").permitAll()
+//                .requestMatchers("/api/todos/save").permitAll()
+//                .requestMatchers("/api/todos/get/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -15,5 +15,5 @@ public class AbstractEntity {
     private Long id;
 
     @Column(name = "created_at")
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

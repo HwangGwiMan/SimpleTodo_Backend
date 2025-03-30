@@ -56,8 +56,8 @@ public class UserService {
             // 기본 권한 부여
             roleService.getAllRoles().forEach(role -> {
                 UserRoleEntity userRoleEntity = new UserRoleEntity();
-                userRoleEntity.setUser_id(userEntity.getId());
-                userRoleEntity.setRole_id(role.getId());
+                userRoleEntity.setUserId(userEntity.getId());
+                userRoleEntity.setRoleId(role.getId());
                 userRoleRepository.save(userRoleEntity);
             });
 
