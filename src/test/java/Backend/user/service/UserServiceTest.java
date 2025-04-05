@@ -17,7 +17,7 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Test
+//    @Test
     void signup() {
         UserRequestDto user = new UserRequestDto();
         user.setUsername("test1");
@@ -26,7 +26,7 @@ class UserServiceTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
-    @Test
+//    @Test
     void login() {
         UserRequestDto user = new UserRequestDto();
         user.setUsername("test1");

@@ -8,6 +8,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserRoleDto extends AbstractDto {
-    private Long role_id;
-    private Long user_id;
+    private Long roleId;
+    private Long userId;
 }

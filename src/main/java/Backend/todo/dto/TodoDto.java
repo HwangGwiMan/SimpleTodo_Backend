@@ -9,9 +9,9 @@ import java.sql.Timestamp;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TodoDto extends AbstractDto {
-    private Long user_id;
+    private Long userId;
     private String content;
-    private Timestamp start_date_time;
-    private Timestamp end_date_time;
-    private Timestamp AlarmDateTime;
+    private Timestamp startDateTime;
+    private Timestamp endDateTime;
+    private Timestamp alarmDateTime;
 }

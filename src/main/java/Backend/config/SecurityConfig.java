@@ -3,6 +3,7 @@ package Backend.config;
 import java.util.Arrays;
 import java.util.List;
 
+import Backend.role.repository.RoleRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    // private final RoleRepository roleRepository;
+     private final RoleRepository roleRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -45,7 +46,7 @@ public class SecurityConfig {
 //                .requestMatchers("/api/todos/get/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JWTCheckFilter(roleRepository), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

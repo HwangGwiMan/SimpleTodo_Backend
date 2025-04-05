@@ -16,4 +16,7 @@ public class AbstractEntity {
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @Transient
+    private DirtyFlag dirtyFlag;
 }

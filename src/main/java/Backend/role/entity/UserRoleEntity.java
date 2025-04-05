@@ -1,6 +1,7 @@
 package Backend.role.entity;
 
 import Backend.common.AbstractEntity;
+import Backend.common.DirtyFlag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -19,4 +20,5 @@ public class UserRoleEntity extends AbstractEntity {
 
     @Column(name = "user_id")
     private Long userId;
+
 }

@@ -24,12 +24,12 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("/save")
-    public void createTodo(@RequestBody TodoSaveDto todoSaveDto) {
+    public void save(@RequestBody TodoSaveDto todoSaveDto) {
         todoService.save(todoSaveDto);
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<Map<String, Object>> getTodoListByUserId(@PathVariable Long userId) {
+    public ResponseEntity<Map<String, Object>> getTodoListByUserId(@PathVariable("userId") Long userId) {
         return todoService.getTodoListByUserId(userId);
     }
 } 

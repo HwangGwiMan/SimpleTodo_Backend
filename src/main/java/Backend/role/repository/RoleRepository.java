@@ -1,21 +1,21 @@
- package Backend.role.repository;
+package Backend.role.repository;
 
- import java.util.List;
+import java.util.List;
+import java.util.Optional;
 
- import Backend.role.entity.RoleEntity;
- import org.springframework.data.jpa.repository.JpaRepository;
- import org.springframework.jdbc.core.JdbcTemplate;
- import org.springframework.stereotype.Repository;
+import Backend.role.entity.RoleEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
- import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
- @Repository
- public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
+@Repository
+public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
 
     // 전체 권한 조회
     List<RoleEntity> findAll();
-    
-    
+
 //     public List<String> findRolesByUserId(int userId) {
 //         String sql = "SELECT r.name FROM roles r " +
 //                     "JOIN user_roles ur ON r.id = ur.role_id " +
@@ -67,4 +67,4 @@
 //         jdbcTemplate.update(sql, roleName);
 //     }
     
- }
+}
